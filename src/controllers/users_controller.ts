@@ -84,6 +84,10 @@ export const usersController = {
         birthDate: data.birthDate ? new Date(data.birthDate) : undefined
       })
       
+      if(data.password && data.password.trim() !== '') {
+        user['password'] = data.password
+      }
+
       return reply.send(user)
     } catch (error) {
       return reply.status(500).send({ message: 'Erro interno do servidor' })

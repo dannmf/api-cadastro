@@ -79,7 +79,12 @@ export class UsersService {
         name?: string
         email?: string
         birthDate?: Date
+        password?: string
     }) {
+        if (data.password) {
+            const hashedPassword = await hash(data.password, 10)
+            data.password = hashedPassword
+        }
         const user = await prisma.user.update({
             where: {id},
             data
