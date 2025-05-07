@@ -1,6 +1,6 @@
 // src/routes/users_routes.ts
 import { FastifyInstance } from 'fastify'
-import { usersController } from '../controllers/users_controller'
+import { usersController } from '../controllers/user_controller'
 
 export async function usersRoutes(fastify: FastifyInstance) {
 

@@ -13,6 +13,13 @@ interface CreateUserBody {
   birthDate: Date
 }
 
+interface UpdateUserBody {
+  name?: string,
+  email?: string,
+  password?: string,
+  birthDate?: Date
+}
+
 
 export const usersController = {
   async create(request: FastifyRequest<{Body: CreateUserBody}>, reply: FastifyReply) {
@@ -65,11 +72,11 @@ export const usersController = {
   },
 
 
-  async update(request: FastifyRequest<{ Params: ParamsWithId }>, reply: FastifyReply) {
+  async update(request: FastifyRequest<{ Params: ParamsWithId, Body: UpdateUserBody }>, reply: FastifyReply) {
     try {
       const { id } = request.params
       const userId = parseInt(id, 10)
-      const data = request.body as any
+      const data = request.body 
 
       if (isNaN(userId)) {
         return reply.status(400).send({ message: 'ID inválido' })
