@@ -92,7 +92,6 @@ export class UsersService {
 
         return user
     }
-
     async delete(id: number) {
         const user = await prisma.user.delete({
             where: {id}

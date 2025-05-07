@@ -10,7 +10,6 @@ fastify.register(cors, {
   credentials: true
 });
 
-// Registra as rotas
 fastify.register(usersRoutes);
 
 
