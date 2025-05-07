@@ -16,7 +16,7 @@ export class UsersService {
         })
 
         if (existingUser) {
-            throw new Error('EMAIL_ALREADY_EXISTS')
+            throw new Error('E-mail já cadastrado')
         }
 
         const hashedPassword = await hash(data.password, 10)
