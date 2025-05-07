@@ -2,7 +2,7 @@ import { prisma } from "../lib/prisma";
 
 export class ProductsService {
     async createProduct(data: {
-        id: number;
+
         name: string;
         description: string;
         price: number;
@@ -12,7 +12,7 @@ export class ProductsService {
     }) {
         const existingProduct = await prisma.product.findUnique({
             where: {
-                id: data.id
+                name: data.name
             }
         })
 

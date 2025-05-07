@@ -1,5 +1,5 @@
 import { FastifyRequest, FastifyReply } from 'fastify'
-import { UsersService } from '../services/users_service'
+import { UsersService } from '../services/user_service'
 const usersService = new UsersService()
 
 interface ParamsWithId {
