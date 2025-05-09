@@ -7,7 +7,7 @@ export class ProductsService {
         description: string;
         price: number;
         stock: number;
-        category: string;
+        categoryId: number;
         imageUrl: string;
     }) {
         const existingProduct = await prisma.product.findUnique({
@@ -26,7 +26,7 @@ export class ProductsService {
                 description: data.description,
                 price: data.price,
                 stock: data.stock,
-                category: data.category,
+                categoryId: data.categoryId,
                 imageUrl: data.imageUrl
             },
 
@@ -87,7 +87,7 @@ export class ProductsService {
         description?: string
         price?: number
         stock?: number
-        category?: string
+        categoryId?: number
         imageUrl?: string
     }){
         const productId = await prisma.product.findUnique({
@@ -105,7 +105,7 @@ export class ProductsService {
                 description: data.description,
                 price: data.price,
                 stock: data.stock,
-                category: data.category,
+                categoryId: data.categoryId,
                 imageUrl: data.imageUrl
             },
             select: {
