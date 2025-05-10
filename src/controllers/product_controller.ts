@@ -1,5 +1,7 @@
+import { Prisma, PrismaClient } from "@prisma/client";
 import { ProductsService } from "../services/product_service";
 import { FastifyRequest, FastifyReply } from "fastify";
+import { prisma } from "../lib/prisma";
 
 const productService = new ProductsService()
 
@@ -33,18 +35,20 @@ export const productController = {
             const product = await productService.createProduct({
                 name,
                 description,
-                price,
-                stock,
-                categoryId,
+                price: Number(price),
+                stock: Number(stock),
+                categoryId: Number(categoryId),
                 imageUrl
-            })
+              })
             return reply.status(201).send(product)
         } catch (error: any) {
-            if (error.message === 'Produto Já Cadastrado') {
+            console.error('Erro ao criar produto:', error)
+            
+
+            if (error.message === 'Produto já cadastrado') {
                 return reply.status(400).send({ message: 'Produto já cadastrado' })
-
             }
-
+        
             return reply.status(500).send({ message: 'Erro interno no servidor' })
         }
     },
