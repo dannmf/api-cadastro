@@ -1,6 +1,7 @@
 import Fastify from 'fastify'
 import cors from '@fastify/cors'
 import { usersRoutes } from './routes/users_routes';
+import { productRoutes } from './routes/product_routes';
 const fastify = Fastify({ logger: true })
 
 // Registra o CORS primeiro
@@ -10,6 +11,8 @@ fastify.register(cors, {
   credentials: true
 });
 
+fastify.register(usersRoutes);
+fastify.register(productRoutes);
 fastify.register(usersRoutes);
 
 
