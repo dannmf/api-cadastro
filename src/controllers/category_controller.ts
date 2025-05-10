@@ -1,6 +1,5 @@
 import { FastifyRequest, FastifyReply } from "fastify";
 import { CategoryService } from "../services/category_service";
-import { UsersService } from "../services/user_service";
 
 const categoryService = new CategoryService()
 
