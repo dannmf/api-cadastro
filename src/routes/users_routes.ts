@@ -1,16 +1,15 @@
-// src/routes/users_routes.ts
 import { FastifyInstance } from 'fastify'
 import { usersController } from '../controllers/user_controller'
 
-export async function usersRoutes(fastify: FastifyInstance) {
+export async function userRoutes(fastify: FastifyInstance) {
 
-  fastify.post('/users', usersController.create)
+  fastify.post('/user', usersController.create)
   
-  fastify.get('/users', usersController.findAll)
+  fastify.get('/user', usersController.findAll)
   
-  fastify.get('/users/:id', usersController.findById)
+  fastify.get('/user/:id', usersController.findById)
   
-  fastify.put('/users/:id', usersController.update)
+  fastify.put('/user/:id', usersController.update)
   
-  fastify.delete('/users/:id', usersController.delete)
+  fastify.delete('/user/:id', usersController.delete)
 }
