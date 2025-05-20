@@ -114,10 +114,14 @@ export const productController = {
             const product = await productService.update(productId, {
                 name: data.name,
                 description: data.description,
-                price: data.price,
-                stock: data.stock,
+                price: Number(data.price),
+                stock: Number(data.stock),
+                categoryId: Number(data.categoryId),
                 imageUrl: data.imageUrl,
             })
+
+            return reply.send(product)
+
         } catch (error: any) {
             return reply.status(500).send({ message: 'Erro interno no servidor' })
         }
