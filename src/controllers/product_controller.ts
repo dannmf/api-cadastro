@@ -92,6 +92,15 @@ export const productController = {
         }
     },
 
+    async lowStockProducts(request: FastifyRequest, reply: FastifyReply) {
+        try { 
+            const products = await productService.lowStockProducts()
+            return reply.send(products)
+        } catch (error: any) {
+
+        }
+    },
+
     async update(request: FastifyRequest<{ Params: ParamsWithId, Body: UpdateProductBody }>, reply: FastifyReply) {
         try {
             const { id } = request.params

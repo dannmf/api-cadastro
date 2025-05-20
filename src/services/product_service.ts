@@ -88,6 +88,27 @@ export class ProductsService {
         return count
     }
 
+    async lowStockProducts(){
+        const products = await prisma.product.findMany({
+            where: {
+                stock: {
+                    lte: 5
+                }
+            },
+            select: {
+                id: true,
+                name: true,
+                description: true,
+                price: true,
+                stock: true,
+                category: true,
+                imageUrl: true
+            }
+        })
+
+        return products
+    }
+
     async update(id:number, data:{
         name?: string
         description?: string
