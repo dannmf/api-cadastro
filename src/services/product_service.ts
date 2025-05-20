@@ -82,6 +82,12 @@ export class ProductsService {
         return product
     }
 
+    async countProducts(){
+        const count = await prisma.product.count()
+
+        return count
+    }
+
     async update(id:number, data:{
         name?: string
         description?: string

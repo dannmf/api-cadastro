@@ -6,6 +6,8 @@ export async function productRoutes(fastify: FastifyInstance) {
 
     fastify.get('/product', productController.findAll)
 
+    fastify.get('/product/count', productController.countProducts)
+
     fastify.get('/product/:id', productController.findById)
 
     fastify.put('/product/:id', productController.update)

@@ -39,16 +39,16 @@ export const productController = {
                 stock: Number(stock),
                 categoryId: Number(categoryId),
                 imageUrl
-              })
+            })
             return reply.status(201).send(product)
         } catch (error: any) {
             console.error('Erro ao criar produto:', error)
-            
+
 
             if (error.message === 'Produto já cadastrado') {
                 return reply.status(400).send({ message: 'Produto já cadastrado' })
             }
-        
+
             return reply.status(500).send({ message: 'Erro interno no servidor' })
         }
     },
@@ -68,7 +68,7 @@ export const productController = {
             const productId = parseInt(id, 10)
 
             if (isNaN(productId)) {
-                return reply.status(400).send({message: 'ID Inválido'})
+                return reply.status(400).send({ message: 'ID Inválido' })
             }
 
             const product = await productService.findById(productId)
@@ -82,14 +82,24 @@ export const productController = {
         }
     },
 
-    async update(request: FastifyRequest<{Params: ParamsWithId, Body: UpdateProductBody}>, reply: FastifyReply){
-        try{
-            const {id} = request.params
-            const  productId = parseInt(id,10)
+    async countProducts(request: FastifyRequest, reply: FastifyReply) {
+        try {
+            const count = await productService.countProducts()
+            return reply.send({ count })
+        } catch (error: any) {
+            console.error('Erro ao contar produtos:', error)
+            return reply.status(500).send({ message: 'Erro interno no servidor' })
+        }
+    },
+
+    async update(request: FastifyRequest<{ Params: ParamsWithId, Body: UpdateProductBody }>, reply: FastifyReply) {
+        try {
+            const { id } = request.params
+            const productId = parseInt(id, 10)
             const data = request.body
 
             if (isNaN(productId)) {
-                return reply.status(400).send({message: 'ID Inválido'})
+                return reply.status(400).send({ message: 'ID Inválido' })
             }
 
             const product = await productService.update(productId, {
@@ -99,24 +109,24 @@ export const productController = {
                 stock: data.stock,
                 imageUrl: data.imageUrl,
             })
-        } catch(error: any){
-            return reply.status(500).send({message:'Erro interno no servidor'}) 
+        } catch (error: any) {
+            return reply.status(500).send({ message: 'Erro interno no servidor' })
         }
     },
 
-    async delete(request: FastifyRequest<{Params: ParamsWithId}>, reply: FastifyReply){
-        try{
-            const {id} = request.params
-            const productId = parseInt(id,10)
+    async delete(request: FastifyRequest<{ Params: ParamsWithId }>, reply: FastifyReply) {
+        try {
+            const { id } = request.params
+            const productId = parseInt(id, 10)
 
-            if(isNaN(productId)) {
-                return reply.status(400).send({message: 'ID inválido'})
+            if (isNaN(productId)) {
+                return reply.status(400).send({ message: 'ID inválido' })
             }
 
             await productService.delete(productId)
             return reply.status(204).send()
-        } catch(error){
-            return reply.status(500).send({ message: 'Erro interno do servidor'})
+        } catch (error) {
+            return reply.status(500).send({ message: 'Erro interno do servidor' })
         }
     }
 
