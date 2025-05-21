@@ -1,3 +1,4 @@
+import { ProductDto } from "../dto/product_dto";
 import { prisma } from "../lib/prisma";
 
 export class ProductsService {
@@ -20,7 +21,7 @@ export class ProductsService {
             throw new Error('Produto já cadastrado')
         }
 
-        return prisma.product.create({
+        const product = await prisma.product.create({
             data: {
                 name: data.name,
                 description: data.description,
@@ -38,8 +39,10 @@ export class ProductsService {
                 stock: true,
                 category: true,
                 imageUrl: true
-            }
+            },
         })
+
+        return new ProductDto(product)
     }
 
     async findAll(){
@@ -58,7 +61,7 @@ export class ProductsService {
             }
         })
 
-        return products
+        return products.map(product => new ProductDto(product));
     }
 
     async findById(id: number) {
@@ -79,12 +82,11 @@ export class ProductsService {
             throw new Error('Produto não encontrado')
         }
 
-        return product
+        return new ProductDto(product)
     }
 
     async countProducts(){
         const count = await prisma.product.count()
-
         return count
     }
 
@@ -106,7 +108,7 @@ export class ProductsService {
             }
         })
 
-        return products
+        return products.map(products => new ProductDto(products));
     }
 
     async update(id:number, data:{
@@ -146,7 +148,7 @@ export class ProductsService {
             }
         })
 
-        return product
+        return new ProductDto(product)
 
     }
 
@@ -155,7 +157,7 @@ export class ProductsService {
             where: {id}
         })
 
-        return product
+        return new ProductDto(product)
     }
 
 }
